@@ -1,0 +1,141 @@
+body {
+    background-color: #4d6b20;
+    margin: 0 auto;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.header {
+    font-size: larger;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    margin-bottom: 2px;
+}
+
+.header h1 {
+    color: burlywood;
+    background-color: rgb(67, 99, 41);
+    border: rgb(168, 231, 67) double 2px;
+    border-radius: 35%;
+    padding: 15px;
+    margin-bottom: 10px;
+}
+
+.header img {
+    display: block;
+    border-radius: 50%;
+    width: 150px;
+    height: 100px;
+}
+
+.pic-left {
+    position: absolute;
+    left: 10px;
+}
+
+.pic-right {
+    position: absolute;
+    right: 10px;
+}
+
+.game-tab, .player-tab, .mine-board {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+.game-tab {
+    background-color: #352727;
+    color: #352727;
+    height: fit-content;
+    margin-top: 0 auto;
+    margin-bottom: 0 auto;
+}
+.game-tab h4 {
+    margin: 1px;
+}
+
+.game-tab button {
+    padding: 5px;
+    text-align: center;
+    margin-left: 40%;
+    margin-right: 40%;
+    background-color: lavender;
+    border: black double 2px;
+    cursor: pointer;
+}
+
+.timer, .mines-count span {
+    background-color: #ddefc1;
+    padding: 5px;
+    border: black double 2px;
+}
+
+.player-tab {
+    background-color: rgb(175, 175, 175);
+}
+
+.player-tab .radio-bar {
+    margin-left: 10%;
+    margin-right: 10%;
+    text-align: center;
+    background-color: #352727;
+    color: #ddefc1;
+    border: #655050 double 2px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.radio-bar label {
+    background-color: #3f2e2eb4;
+    padding: 10px;
+    margin-right: 8px;    
+    margin-left: 8px;    
+
+}
+
+.radio-bar input, .cell:hover{
+    cursor: pointer;
+}
+
+.player-tab h4 {
+    color: rgb(165, 5, 5);
+    font-size: 25px;
+    background-color: #ddefc1;
+    border: #655050 double 3px;
+    border-radius: 20%;
+    margin-top: 0;
+    margin-bottom: 0;
+    }
+
+
+.hints:hover {
+    font-size: 25px;
+    background-color: #a6ad9a;
+    border: #ddefc1 double 3px;
+    cursor: pointer;    
+}
+
+.cell {
+    height: 30px;
+    width: 30px;
+    background-color: #bfd39f;
+    margin: 0 auto;
+    /* padding: 20px; */
+    border: black 1px solid;
+}
+.cell:hover{
+    background-color: #dce2d1;
+    border: rgb(0, 66, 6) 1px solid;
+
+}
+

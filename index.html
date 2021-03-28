@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/main.css">
+    <title>mines</title>
+</head>
+
+<body onload="initGame()">
+    <div class="header">
+        <img class="pic-left" src="pictures/header-mine.jpg" alt="header-mine">
+        <h1>Mine Sweeper </h1>
+        <img class="pic-right" src="pictures/header-mine.jpg" alt="header-mine">
+    </div>
+    
+    <div class="player-tab">
+        <h4 class="life"></h4>
+        <div class="radio-bar">
+            <label for="easy">Easy
+                <input id="easy" type="radio" name="difficulty" data-size="16" data-mines="2" data-life="0"
+                data-hint="0" onclick="levelClick(this)" checked>
+            </label>
+            <label for="Medium">Medium
+                <input type="radio" name="difficulty" data-size="64" data-mines="12" data-life="2" data-hint="1"
+                onclick="levelClick(this)">
+            </label>
+            <label for="hard">Hard
+                <input type="radio" name="difficulty" data-size="144" data-mines="30" data-life="3" data-hint="3"
+                onclick="levelClick(this)">
+            </label>
+        </div>
+        <h4 class="hints"> ❓ <span></span></h4>
+        
+    </div>
+
+    <div class="game-tab">
+        <h4 class="mines-count"><span>0</span> 🚩</h4>
+        <button onclick="initGame()">🙂</button>
+        <h4 class="timer"><span>0</span></h4>
+    </div>
+    <div class="mine-board"></div>
+        
+    <script src="js/dom.js"></script>
+    <script src="js/util.js"></script>
+    <script src="js/main.js"></script>
+
+
+</body>
+
+</html>
