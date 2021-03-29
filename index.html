@@ -15,25 +15,25 @@
         <h1>Mine Sweeper </h1>
         <img class="pic-right" src="pictures/header-mine.jpg" alt="header-mine">
     </div>
-    
+
     <div class="player-tab">
-        <h4 class="life"></h4>
+        <h4 class="life">❤</h4>
         <div class="radio-bar">
             <label for="easy">Easy
                 <input id="easy" type="radio" name="difficulty" data-size="16" data-mines="2" data-life="0"
-                data-hint="0" onclick="levelClick(this)" checked>
+                    data-hint="0" onclick="levelClick(this)" checked>
             </label>
             <label for="Medium">Medium
                 <input type="radio" name="difficulty" data-size="64" data-mines="12" data-life="2" data-hint="1"
-                onclick="levelClick(this)">
+                    onclick="levelClick(this)">
             </label>
             <label for="hard">Hard
                 <input type="radio" name="difficulty" data-size="144" data-mines="30" data-life="3" data-hint="3"
-                onclick="levelClick(this)">
+                    onclick="levelClick(this)">
             </label>
         </div>
-        <h4 class="hints"> ❓ <span></span></h4>
-        
+        <h4 class="hints" onclick="toggleHint()"> ❓ </h4>
+
     </div>
 
     <div class="game-tab">
@@ -42,7 +42,7 @@
         <h4 class="timer"><span>0</span></h4>
     </div>
     <div class="mine-board"></div>
-        
+
     <script src="js/dom.js"></script>
     <script src="js/util.js"></script>
     <script src="js/main.js"></script>

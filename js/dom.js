@@ -1,5 +1,6 @@
 'use strict'
 
+// render board display
 function renderBoard(mat, selector) {
     var strHTML = '<table><tbody>\n';
     for (var i = 0; i < mat.length; i++) {
@@ -15,21 +16,21 @@ function renderBoard(mat, selector) {
     elContainer.innerHTML = strHTML;
 }
 
-
+// remaining flag display
 function printFlagCount() {
     var elFlag = document.querySelector('.mines-count span');
     elFlag.innerHTML = gGame.flagLeft
 }
 
-
-function printBtn() {
+// game button display
+function printGameBtn() {
     var elBtn = document.querySelector('.game-tab button');
     if (gGame.isOn && !gGame.isWin) elBtn.innerHTML = '🙂';
     if (!gGame.isOn && gGame.isWin) elBtn.innerHTML = '😎';
     if (!gGame.isOn && !gGame.isWin) elBtn.innerHTML = '🤯';
 }
 
-
+// reveal all mines
 function showMines() {
     for (var i = 0; i < gBoard.length; i++) {
         for (var j = 0; j < gBoard[i].length; j++) {
@@ -42,7 +43,7 @@ function showMines() {
 
 }
 
-
+// life display
 function printLife() {
     var strHTML = LIFE;
     var elLife = document.querySelector('.life')
@@ -51,4 +52,16 @@ function printLife() {
     }
     if (gGame.life < 1) strHTML = '🖤'
     elLife.innerHTML = strHTML;
+}
+
+// hint button display
+function printHintBtn() {
+    if (!gGame.isOn) return;
+    var elHint = document.querySelector('.hints')
+    if (gGame.hints < 1) {
+        elHint.textContent = '❔';
+        return;
+    }
+    else if (gGame.isHint) elHint.textContent = '💡';
+    else elHint.textContent = HINT;
 }

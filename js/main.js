@@ -9,9 +9,11 @@ const LIFE = '❤';
 const HINT = '❓';
 
 
+
 var gBoard = [];
 var gStartTime = null;
 
+// game variables
 var gGame = {
     isOn: false,
     isWin: false,
@@ -20,12 +22,15 @@ var gGame = {
     flagLeft: 0,
     timerInter: null,
     cellsRevealed: 0,
+    isHint: false,
+    hints: 0,
 };
-
+// level variables
 var gLevel = {
     boardSize: 16,
     mineCount: 2,
-    lifeCount: 0
+    lifeCount: 0,
+    hintCount: 0,
 };
 
 
@@ -39,13 +44,15 @@ function initGame() {
     gGame.cellsRevealed = 0
     gGame.life = gLevel.lifeCount;
     gGame.flagLeft = gLevel.mineCount;
-
+    gGame.isHint = false;
+    gGame.hints = gLevel.hintCount;
     gBoard = buildBoard()
     renderBoard(gBoard, '.mine-board');
 
     printFlagCount();
-    printBtn();
+    printGameBtn();
     printLife();
+    printHintBtn();
 }
 
 // create board
@@ -81,15 +88,25 @@ function createMines(board) {
     }
 }
 
-
+// cell click activation
 function cellClicked(elCell) {
-
+    // check if game won or lost
     if (gGame.isWin || !gGame.isOn) return;
+    //check if first click
     if (gGame.isFirstClick) firstClick(elCell);
 
     var row = +elCell.dataset.i;
     var col = +elCell.dataset.j;
     var currCell = gBoard[row][col];
+
+    // check if hint is active
+    if (gGame.isHint && gGame.hints > 0) {
+        printHintBtn();
+        activateHint(row, col);
+        gGame.isHint = false;
+        gGame.hints--;
+        return;
+    }
 
     if (currCell.isMarked || currCell.isShown) return
     currCell.isShown = true;
@@ -118,7 +135,7 @@ function cellClicked(elCell) {
     checkGameOver()
 }
 
-
+// cell marked activation
 function cellMarked(elCell) {
     event.preventDefault();
     if (gGame.isWin || !gGame.isOn) return;
@@ -151,7 +168,7 @@ function cellMarked(elCell) {
     checkGameOver();
 }
 
-
+// first click activation
 function firstClick(elCell) {
     gGame.isFirstClick = false;
     gStartTime = Date.now();
@@ -162,17 +179,17 @@ function firstClick(elCell) {
     setMinesNegsCount(gBoard)
 }
 
-
+// set mines neighbors 
 function setMinesNegsCount(board) {
     var length = Math.sqrt(gLevel.boardSize);
     for (var i = 0; i < length; i++) {
         for (var j = 0; j < length; j++) {
-            board[i][j].minesAroundCount = countMinesNeighbors(i, j, board);
+            board[i][j].minesAroundCount = countMinesNeighbors(board, i, j);
         }
     }
 }
-
-function countMinesNeighbors(cellI, cellJ, mat) {
+// count mines neighbors
+function countMinesNeighbors(mat, cellI, cellJ) {
     var neighborsSum = 0;
     for (var i = cellI - 1; i <= (cellI + 1); i++) {
         if (i < 0 || i >= mat.length) continue;
@@ -185,7 +202,7 @@ function countMinesNeighbors(cellI, cellJ, mat) {
     return neighborsSum;
 }
 
-
+// check if game over
 function checkGameOver() {
     // game active
     if (gGame.isOn && !gGame.isWin) return;
@@ -200,10 +217,10 @@ function checkGameOver() {
         showMines();
         console.log('Try Again');
     }
-    printBtn();
+    printGameBtn();
 }
 
-
+// expand no mines cells and show neigbors
 function expandShow(row, col) {
     for (var i = row - 1; i <= (row + 1); i++) {
         if (i < 0 || i >= gBoard.length) continue;
@@ -218,14 +235,59 @@ function expandShow(row, col) {
     }
 }
 
-
+// toggle levels
 function levelClick(elLevel) {
-    if (!gGame.isOn) return
     gLevel.boardSize = +elLevel.dataset.size;
     gLevel.lifeCount = +elLevel.dataset.life;
     gLevel.mineCount = +elLevel.dataset.mines;
+    gLevel.hintCount = +elLevel.dataset.hint;
     initGame();
 }
 
+// toggle hint 
+function toggleHint() {
+    if (gGame.isFirstClick) return;
+    if (gGame.isHint) gGame.isHint = false;
+    else gGame.isHint = true;
+    printHintBtn();
+}
+// show hint
+function activateHint(row, col) {
+    for (var i = row - 1; i <= (row + 1); i++) {
+        if (i < 0 || i >= gBoard.length) continue;
+        for (var j = col - 1; j <= (col + 1); j++) {
+            if (j < 0 || j >= gBoard[i].length) continue;
+            var ngbCell = gBoard[i][j];
+            if (ngbCell.isShown) continue;
+            var elNgbCell = document.querySelector(`.cell-${i}-${j}`);
+            elNgbCell.style.backgroundColor = 'yellow';
+            if (ngbCell.isMine) {
+                elNgbCell.innerHTML = MINE;
+                elNgbCell.style.backgroundColor = 'c97d7d';
+            }
+            else if (ngbCell.minesAroundCount > 0) elNgbCell.innerHTML = ngbCell.minesAroundCount;
+        }
+    }
+    setTimeout(function () {
+        disactivateHint(row, col);
+        gGame.isHint = false;
+        printHintBtn();
+    }, 1000);
+}
 
+// hide hint
+function disactivateHint(row, col) {
+    for (var i = row - 1; i <= (row + 1); i++) {
+        if (i < 0 || i >= gBoard.length) continue;
+        for (var j = col - 1; j <= (col + 1); j++) {
+            if (j < 0 || j >= gBoard[i].length) continue;
+            var ngbCell = gBoard[i][j];
+            if (ngbCell.isShown) continue;
+            var elNgbCell = document.querySelector(`.cell-${i}-${j}`);
+            elNgbCell.style.backgroundColor = '#bfd39f';
+            if (ngbCell.isMarked) elNgbCell.innerHTML = FLAG;
+            else elNgbCell.innerHTML = '';
+        }
+    }
+}
 

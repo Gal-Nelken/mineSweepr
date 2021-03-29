@@ -60,6 +60,7 @@ body {
     margin-top: 0 auto;
     margin-bottom: 0 auto;
 }
+
 .game-tab h4 {
     margin: 1px;
 }
@@ -98,12 +99,11 @@ body {
 .radio-bar label {
     background-color: #3f2e2eb4;
     padding: 10px;
-    margin-right: 8px;    
-    margin-left: 8px;    
-
+    margin-right: 8px;
+    margin-left: 8px;
 }
 
-.radio-bar input, .cell:hover{
+.radio-bar input, .cell:hover {
     cursor: pointer;
 }
 
@@ -115,14 +115,13 @@ body {
     border-radius: 20%;
     margin-top: 0;
     margin-bottom: 0;
-    }
-
+}
 
 .hints:hover {
     font-size: 25px;
     background-color: #a6ad9a;
     border: #ddefc1 double 3px;
-    cursor: pointer;    
+    cursor: pointer;
 }
 
 .cell {
@@ -133,9 +132,8 @@ body {
     /* padding: 20px; */
     border: black 1px solid;
 }
-.cell:hover{
+
+.cell:hover {
     background-color: #dce2d1;
     border: rgb(0, 66, 6) 1px solid;
-
 }
-
